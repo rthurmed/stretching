@@ -43,8 +43,9 @@
                 rounded
                 icon
                 class="mx-4"
+                @click="running = !running"
               >
-                <v-icon icon="mdi-play" />
+                <v-icon :icon="running ? 'mdi-pause' : 'mdi-play'" />
               </v-btn>
               <v-btn
                 icon
@@ -73,7 +74,6 @@ const MAX_TIME = 31000 // ms
 const LOOP_TIME = 100 // ms
 
 // TODO: play noise when move to next slide
-// TODO: pause/resume
 
 const poses = [...Array(NUM_POSES)].map((value, key) => `/poses/${key + 1}.jpg`)
 let currentPose = ref(0)
@@ -85,13 +85,13 @@ watch(currentPose, () => {
 })
 
 const onLoopCicle = () => {
-  if (!running) return
+  if (!running.value) return
 
   currentTime.value += LOOP_TIME
 
   if (currentTime.value > MAX_TIME) {
     currentPose.value += 1
-    running = currentPose.value < NUM_POSES
+    running.value = currentPose.value < NUM_POSES
   }
 }
 
