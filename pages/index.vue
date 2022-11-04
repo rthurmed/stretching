@@ -62,20 +62,38 @@
 </template>
 
 <script setup>
-import { ref, watch, computed } from 'vue'
+import { ref, watch } from 'vue'
 
 useHead({
   title: "Stretching"
 })
 
-const MAX_TIME = 30
 const NUM_POSES = 18
+const MAX_TIME = 31000 // ms
+const LOOP_TIME = 100 // ms
+
+// TODO: play noise when move to next slide
+// TODO: pause/resume
 
 const poses = [...Array(NUM_POSES)].map((value, key) => `/poses/${key + 1}.jpg`)
 let currentPose = ref(0)
 let currentTime = ref(0.0)
+let running = ref(true)
 
 watch(currentPose, () => {
   currentTime.value = 0.0
 })
+
+const onLoopCicle = () => {
+  if (!running) return
+
+  currentTime.value += LOOP_TIME
+
+  if (currentTime.value > MAX_TIME) {
+    currentPose.value += 1
+    running = currentPose.value < NUM_POSES
+  }
+}
+
+setInterval(onLoopCicle, LOOP_TIME)
 </script>
