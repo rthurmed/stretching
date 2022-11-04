@@ -11,5 +11,10 @@ export default defineNuxtConfig({
     define: {
       'process.env.DEBUG': false,
     },
+  },
+  runtimeConfig: {
+    public: {
+      numPoses: process.env.NUXT_NUM_POSES
+    }
   }
 })

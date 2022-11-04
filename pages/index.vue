@@ -69,7 +69,9 @@ useHead({
   title: "Stretching"
 })
 
-const NUM_POSES = 18
+const config = useRuntimeConfig()
+
+const NUM_POSES = Number(config.public.numPoses)
 const MAX_TIME = 31000 // ms
 const LOOP_TIME = 100 // ms
 
