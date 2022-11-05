@@ -1,7 +1,11 @@
 <template>
   <v-app>
     <v-main>
-      <audio ref="sfxChange" :src="SOUND_CHANGE" />
+      <audio
+        ref="sfxChange"
+        :src="SOUND_CHANGE"
+        :muted="sfxMuted"
+      />
       <v-container>
         <v-window
           :show-arrows="false"
@@ -30,7 +34,15 @@
             <div class="text-center mb-3">
               {{ currentPose + 1 }} / {{ NUM_POSES }}
             </div>
-            <div class="d-flex justify-center align-center">
+            <div class="d-flex align-center">
+              <v-btn
+                icon
+                disabled=""
+                variant="plain"
+              >
+                <v-icon icon="mdi-clock" />
+              </v-btn>
+              <v-spacer />
               <v-btn
                 icon
                 variant="plain"
@@ -57,6 +69,15 @@
                 @click="currentPose += 1"
               >
                 <v-icon icon="mdi-chevron-right" />
+              </v-btn>
+              <v-spacer />
+              <v-btn
+                icon
+                variant="plain"
+                @click="sfxMuted = !sfxMuted"
+              >
+                <v-icon v-if="sfxMuted" icon="mdi-volume-off" />
+                <v-icon v-else icon="mdi-volume-high" />
               </v-btn>
             </div>
           </template>
@@ -86,6 +107,7 @@ const sfxChange = ref(null)
 let currentPose = ref(0)
 let currentTime = ref(0.0)
 let running = ref(true)
+let sfxMuted = ref(false)
 
 watch(currentPose, () => {
   currentTime.value = 0.0
