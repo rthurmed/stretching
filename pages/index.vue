@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <v-main>
+      <audio ref="sfxChange" :src="SOUND_CHANGE" />
       <v-container>
         <v-window
           :show-arrows="false"
@@ -72,12 +73,13 @@ useHead({
 const config = useRuntimeConfig()
 
 const NUM_POSES = Number(config.public.numPoses)
+const SOUND_CHANGE = config.public.sound.change
 const MAX_TIME = 31000 // ms
 const LOOP_TIME = 100 // ms
 
-// TODO: play noise when move to next slide
-
 const poses = [...Array(NUM_POSES)].map((value, key) => `/poses/${key + 1}.jpg`)
+const sfxChange = ref(null)
+
 let currentPose = ref(0)
 let currentTime = ref(0.0)
 let running = ref(true)
@@ -94,6 +96,7 @@ const onLoopCicle = () => {
   if (currentTime.value > MAX_TIME) {
     currentPose.value += 1
     running.value = currentPose.value < NUM_POSES
+    sfxChange.value.play()
   }
 }
 

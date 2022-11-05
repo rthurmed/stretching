@@ -14,7 +14,10 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      numPoses: process.env.NUXT_NUM_POSES
+      numPoses: process.env.NUXT_NUM_POSES,
+      sound: {
+        change: process.env.NUXT_SOUND_CHANGE_POSE
+      }
     }
   }
 })
