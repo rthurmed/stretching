@@ -33,6 +33,7 @@
             <div class="d-flex justify-center align-center">
               <v-btn
                 icon
+                variant="plain"
                 :disabled="currentPose <= 0"
                 @click="currentPose -= 1"
               >
@@ -40,6 +41,7 @@
               </v-btn>
               <v-btn
                 size="x-large"
+                variant="tonal"
                 stacked
                 rounded
                 icon
@@ -50,6 +52,7 @@
               </v-btn>
               <v-btn
                 icon
+                variant="plain"
                 :disabled="currentPose >= NUM_POSES - 1"
                 @click="currentPose += 1"
               >
